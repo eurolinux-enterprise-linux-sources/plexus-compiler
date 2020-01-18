@@ -32,7 +32,7 @@
 
 Name:       plexus-compiler
 Version:    2.2
-Release:    5%{?dist}
+Release:    7%{?dist}
 Epoch:      0
 Summary:    Compiler call initiators for Plexus
 # extras subpackage has a bit different licensing
@@ -56,6 +56,7 @@ BuildRequires:  plexus-utils
 BuildRequires:  plexus-containers-component-metadata
 BuildRequires:  junit4
 BuildRequires:  plexus-pom
+BuildRequires:  maven-gpg-plugin
 
 
 %description
@@ -96,6 +97,7 @@ cp %{SOURCE2} LICENSE.MIT
 
 # don't build/install compiler-test module, it needs maven2 test harness
 %pom_disable_module plexus-compiler-test
+%pom_remove_dep :plexus-compiler-test plexus-compilers
 
 %build
 %mvn_package ":plexus-compiler{,s}" pom
@@ -115,6 +117,13 @@ cp %{SOURCE2} LICENSE.MIT
 %doc LICENSE LICENSE.MIT
 
 %changelog
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 02.2-7
+- Mass rebuild 2013-12-27
+
+* Wed Nov 13 2013 Mikolaj Izdebski <mizdebsk@redhat.com> - 0:2.2-7
+- Remove dependency on plexus-compiler-test
+- Add missing BR: maven-gpg-plugin
+
 * Fri Jun 28 2013 Mikolaj Izdebski <mizdebsk@redhat.com> - 0:2.2-5
 - Rebuild to regenerate API documentation
 - Resolves: CVE-2013-1571
